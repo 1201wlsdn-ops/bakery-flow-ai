@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "BAKERY FLOW AI",
+  "short_name": "BAKERY FLOW",
+  "description": "스마트 베이커리 업무 및 생산 관리 앱",
+  "lang": "ko-KR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f6f2eb",
+  "theme_color": "#5b4030",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
