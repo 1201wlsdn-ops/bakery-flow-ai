@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5b4030">
+<meta name="description" content="BAKERY FLOW AI - 스마트 베이커리 업무 및 생산 관리">
+<meta name="application-name" content="BAKERY FLOW AI">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="BAKERY FLOW AI">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>BAKERY FLOW AI</title>
+<style>
+:root{--bg:#f6f2eb;--surface:#fffdfa;--surface2:#f4ece2;--ink:#30251e;--muted:#89796c;--line:#e9dfd3;--brown:#654832;--brown2:#896346;--caramel:#c58a58;--cream:#f2dfca;--green:#54805e;--greenbg:#eaf2e9;--red:#bd624f;--redbg:#faece8;--blue:#55778b;--bluebg:#eaf1f5;--shadow:0 8px 26px rgba(66,43,27,.06);--r:18px}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,"Pretendard","Noto Sans KR",system-ui,sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{min-height:100vh;display:grid;grid-template-columns:248px 1fr}
+.sidebar{background:#493426;color:#f9f1e8;padding:22px 15px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.brand{display:flex;gap:11px;align-items:center;padding:4px 8px 25px}.brandmark{width:43px;height:43px;border-radius:14px;background:#f2dfca;color:#654832;display:grid;place-items:center;font-size:23px}.brandname{font-size:16px;font-weight:900;letter-spacing:.3px}.brandtag{font-size:10px;color:#d4bba5;margin-top:4px}
+.navlabel{font-size:10px;letter-spacing:1.5px;color:#bda38d;font-weight:800;padding:13px 12px 8px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#e9dbcf;text-align:left;padding:12px 13px;border-radius:12px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:12px}.nav button .ico{font-size:17px;width:22px;text-align:center}.nav button.active{background:#f3e5d6;color:#563c2a;box-shadow:0 5px 15px #24170f25}.nav button:hover:not(.active){background:#ffffff12}.sidebarbottom{margin-top:auto;border-top:1px solid #ffffff20;padding:15px 7px 2px}.store{display:flex;align-items:center;gap:10px}.storeavatar{width:34px;height:34px;border-radius:11px;background:#9c7659;display:grid;place-items:center}.store b{font-size:12px;display:block}.store small{font-size:10px;color:#cdb9a8}
+.main{min-width:0}.topbar{height:72px;background:#fffdfa;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:5}.crumb{font-size:13px;color:var(--muted)}.crumb b{color:var(--ink)}.topright{display:flex;align-items:center;gap:10px}.live{font-size:11px;color:var(--green);background:var(--greenbg);padding:8px 11px;border-radius:99px;font-weight:800}.date{font-size:12px;color:var(--muted)}
+.content{max-width:1500px;margin:auto;padding:27px 30px 40px}.pagehead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:21px}.eyebrow{font-size:10px;color:var(--brown2);letter-spacing:1.7px;font-weight:900;margin-bottom:8px}.pagehead h1{font-size:26px;letter-spacing:-.8px;margin:0;font-weight:900}.pagehead p{font-size:12px;color:var(--muted);margin:7px 0 0;line-height:1.6}.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:11px;padding:11px 15px;font-size:12px;font-weight:850;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.15s}.btn.primary{background:var(--brown);color:white}.btn.primary:hover{background:#493426;transform:translateY(-1px)}.btn.soft{background:var(--surface2);color:var(--brown)}.btn.line{background:white;color:var(--brown);border:1px solid var(--line)}.btn.danger{background:var(--redbg);color:var(--red)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:17px}.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:19px;min-width:0}.stat{padding:17px 18px}.stathead{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:11px;font-weight:800}.staticon{width:32px;height:32px;border-radius:11px;background:var(--surface2);display:grid;place-items:center;font-size:16px}.statnum{font-size:29px;font-weight:900;letter-spacing:-1px;margin-top:10px}.statfoot{font-size:10px;color:var(--muted);margin-top:3px}
+.hero{border-radius:22px;background:linear-gradient(110deg,#ead5bf,#f5e8da 66%,#eed9c4);padding:23px 25px;display:flex;align-items:center;justify-content:space-between;gap:15px;position:relative;overflow:hidden;margin-bottom:17px}.hero:after{content:"🥖";position:absolute;right:9%;font-size:100px;opacity:.18;transform:rotate(-13deg)}.hero>*{position:relative;z-index:1}.hero h2{font-size:21px;margin:0 0 7px;letter-spacing:-.5px}.hero p{font-size:12px;line-height:1.6;color:#785f4c;margin:0}
+.split{grid-template-columns:minmax(0,1.55fr) minmax(270px,.85fr)}.cardtitle{font-size:15px;font-weight:900;margin:0}.sub{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5}.cardhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:15px}
+.progress{height:9px;border-radius:99px;background:#eee6dd;overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(90deg,#896346,#d29b68);border-radius:99px}
+.stagegrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.stagebox{border:1px solid var(--line);border-radius:14px;padding:12px;background:white}.stagebox .row{display:flex;justify-content:space-between;align-items:center}.stageemoji{font-size:18px}.stagebox small{font-size:10px;color:var(--muted);font-weight:800}.stagebox b{display:block;font-size:12px;margin:8px 0}.stagebox .progress{height:5px}
+.tasklist{display:grid;gap:9px}.taskrow{border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;grid-template-columns:25px minmax(0,1fr) auto;gap:11px;align-items:center;background:white}.taskrow.completed{background:#fbfdf9}.check{width:23px;height:23px;border:1.5px solid #c9b8a8;background:white;border-radius:7px;color:white;display:grid;place-items:center;font-weight:900}.completed .check{background:var(--green);border-color:var(--green)}.taskname{font-size:12px;font-weight:850;line-height:1.4}.completed .taskname{text-decoration:line-through;color:#9aab98}.meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px;font-size:10px;color:var(--muted)}.tag{background:var(--surface2);color:#805d42;border-radius:99px;padding:3px 7px;font-weight:800}.tag.red{background:var(--redbg);color:var(--red)}.tag.green{background:var(--greenbg);color:var(--green)}.taskbuttons{display:flex;gap:5px}.mini{border:1px solid var(--line);background:white;color:var(--brown);border-radius:8px;padding:7px 9px;font-size:10px;font-weight:800}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}.control{border:1px solid var(--line);background:white;color:var(--ink);border-radius:10px;padding:10px 11px;font-size:12px;min-width:0}.control.search{flex:1;min-width:170px}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:14px}table{width:100%;border-collapse:collapse;min-width:620px;background:white}th,td{text-align:left;padding:13px 12px;border-bottom:1px solid var(--line);font-size:11px}th{background:#f8f3ed;color:var(--muted);font-size:10px;font-weight:900}tr:last-child td{border-bottom:0}
+.stageflow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.stagecol{background:#f7f2eb;border:1px solid var(--line);border-radius:15px;padding:11px;min-height:170px}.stagecolhead{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:900;margin-bottom:10px}.stagecolhead small{color:var(--muted);font-size:10px}.stageitem{background:white;border:1px solid var(--line);border-radius:11px;padding:10px;margin-bottom:8px}.stageitem b{font-size:11px;display:block;line-height:1.45}.stageitem small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+.insights{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.insight{border:1px solid var(--line);border-radius:13px;padding:13px;background:white}.insight b{font-size:12px;display:block;margin-bottom:5px}.insight p{font-size:11px;color:var(--muted);line-height:1.6;margin:0}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{min-width:0}.field.wide{grid-column:1/-1}.field label{display:block;font-size:11px;color:var(--muted);font-weight:850;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:white;padding:11px;font-size:12px;color:var(--ink)}.field textarea{min-height:75px;resize:vertical}
+.voiceinput{display:flex;gap:7px}.voiceinput input{flex:1;min-width:0}.voicehint{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.5}
+.person{display:flex;align-items:center;gap:10px}.avatar{width:35px;height:35px;border-radius:12px;background:#f1dfcc;color:#79583e;display:grid;place-items:center;font-weight:900}.person b{font-size:12px;display:block}.person small{font-size:10px;color:var(--muted)}
+.empty{padding:28px 15px;text-align:center;color:var(--muted);font-size:12px;border:1px dashed #d9cbbb;border-radius:13px;line-height:1.7}
+.notice{background:#f9f1e8;border:1px solid #edddca;border-radius:13px;padding:13px;font-size:11px;line-height:1.65;color:#765b45}
+.toggle{width:42px;height:24px;border:0;border-radius:99px;background:#d6cbc0;padding:3px}.toggle span{display:block;width:18px;height:18px;border-radius:50%;background:white;transition:.2s}.toggle.on{background:var(--green)}.toggle.on span{transform:translateX(18px)}
+.page{display:none}.page.active{display:block}
+.bottomnav{display:none}
+.modalback{display:none;position:fixed;inset:0;background:#2c2019a8;z-index:20;align-items:center;justify-content:center;padding:15px}.modalback.show{display:flex}.modal{width:min(540px,100%);max-height:92vh;overflow:auto;background:var(--surface);border-radius:20px;padding:21px;box-shadow:0 20px 65px #1c100b55}.modal h2{font-size:18px;margin:0 0 6px}.modal p{font-size:11px;color:var(--muted);line-height:1.6;margin:0 0 16px}.modalfoot{display:flex;justify-content:flex-end;gap:7px;margin-top:18px}
+.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);background:#493426;color:white;padding:11px 16px;border-radius:99px;font-size:12px;opacity:0;pointer-events:none;transition:.25s;z-index:50}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:1050px){.app{grid-template-columns:210px 1fr}.content{padding:22px 20px}.stats{grid-template-columns:repeat(2,1fr)}.stageflow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.app{display:block;padding-bottom:70px}.sidebar{display:none}.topbar{height:58px;padding:0 15px}.content{padding:18px 13px 28px}.pagehead h1{font-size:22px}.pagehead{margin-bottom:15px}.date{display:none}.bottomnav{display:grid;grid-template-columns:repeat(6,1fr);position:fixed;bottom:0;left:0;right:0;background:#fffdfa;border-top:1px solid var(--line);z-index:10;padding:7px 3px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -5px 18px #4934260c}.bottomnav button{border:0;background:transparent;color:var(--muted);font-size:9px;font-weight:800;display:grid;justify-items:center;gap:3px;padding:4px 0}.bottomnav button span{font-size:18px}.bottomnav button.active{color:var(--brown)}.split{grid-template-columns:1fr}.hero{padding:19px}.hero:after{right:0;font-size:75px}.stagegrid{grid-template-columns:repeat(2,minmax(0,1fr))}.stageflow{grid-template-columns:1fr 1fr}.insights{grid-template-columns:1fr}.taskrow{grid-template-columns:24px minmax(0,1fr)}.taskbuttons{grid-column:2;justify-content:flex-end}.pagehead .actions .btn{padding:10px}.formgrid{grid-template-columns:1fr}.field.wide{grid-column:auto}}
+@media(max-width:390px){.stageflow{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:13px}.statnum{font-size:25px}.hero h2{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+ <div class="brand"><div class="brandmark">🥐</div><div><div class="brandname">BAKERY FLOW AI</div><div class="brandtag">SMART BAKERY MANAGEMENT</div></div></div>
+ <div class="navlabel">WORKSPACE</div>
+ <nav class="nav" id="sideNav">
+  <button class="active" data-page="dashboard"><span class="ico">▦</span>대시보드</button>
+  <button data-page="tasks"><span class="ico">☑</span>업무 관리</button>
+  <button data-page="production"><span class="ico">🥖</span>생산 공정</button>
+  <button data-page="team"><span class="ico">♙</span>직원 관리</button>
+  <button data-page="insights"><span class="ico">✦</span>AI 분석</button>
+  <button data-page="settings"><span class="ico">⚙</span>설정</button>
+ </nav>
+ <div class="sidebarbottom"><div class="store"><div class="storeavatar">🏠</div><div><b id="storeNameSide">우리 동네 베이커리</b><small>매장 관리자</small></div></div></div>
+</aside>
+<main class="main">
+<header class="topbar"><div class="crumb">BAKERY FLOW AI <span style="color:#c5b5a6"> / </span><b id="crumb">대시보드</b></div><div class="topright"><span class="live">● 운영 현황</span><span class="date" id="dateLabel"></span></div></header>
+<div class="content">
+<section class="page active" id="page-dashboard">
+ <div class="pagehead"><div><div class="eyebrow">YOUR BAKERY, IN FLOW</div><h1>좋은 하루의 시작이에요 👋</h1><p>오늘의 생산과 업무 흐름을 한눈에 확인하세요.</p></div><div class="actions"><button class="btn primary" onclick="openTaskModal()">＋ 신규 업무 등록</button></div></div>
+ <div class="hero"><div><h2>오늘의 베이킹, 더 체계적으로.</h2><p>작업 현황을 확인하고 완료한 업무를 체크해 보세요.<br>작은 체크 하나가 매장의 흐름을 바꿉니다.</p></div><button class="btn soft" onclick="go('tasks')">업무 전체 보기 →</button></div>
+ <div class="grid stats" id="dashboardStats"></div>
+ <div class="grid split">
+  <div class="card"><div class="cardhead"><div><h3 class="cardtitle">오늘의 생산 진행률</h3><div class="sub">공정별 작업 완료 현황</div></div><b id="dashPercent" style="font-size:20px;color:var(--brown)">0%</b></div><div class="progress"><span id="dashProgress" style="width:0%"></span></div><div class="stagegrid" id="dashStages" style="margin-top:17px"></div></div>
+  <div class="card"><div class="cardhead"><div><h3 class="cardtitle">⚡ 지금 확인할 업무</h3><div class="sub">미완료·지연 업무를 먼저 확인하세요.</div></div><button class="btn line" onclick="go('tasks')">전체</button></div><div id="urgentTasks" class="tasklist"></div></div>
+ </div>
+ <div class="card" style="margin-top:16px"><div class="cardhead"><div><h3 class="cardtitle">오늘의 업무 요약</h3><div class="sub">최근 등록된 업무와 진행 상태</div></div><button class="btn soft" onclick="go('tasks')">업무 관리 열기 →</button></div><div id="recentTasks" class="tasklist"></div></div>
+</section>
+
+<section class="page" id="page-tasks">
+ <div class="pagehead"><div><div class="eyebrow">TASK MANAGEMENT</div><h1>업무 관리</h1><p>업무를 등록하고 담당자를 배정하세요. 완료 체크는 한 번이면 충분합니다.</p></div><div class="actions"><button class="btn primary" onclick="openTaskModal()">＋ 신규 업무 등록</button></div></div>
+ <div class="grid stats" id="taskStats"></div>
+ <div class="card"><div class="toolbar"><input class="control search" id="taskSearch" placeholder="업무명·담당자 검색" oninput="renderTasks()"><select class="control" id="taskStageFilter" onchange="renderTasks()"><option value="">전체 공정</option></select><select class="control" id="taskStatusFilter" onchange="renderTasks()"><option value="">전체 상태</option><option value="todo">미완료</option><option value="done">완료</option><option value="late">지연</option></select></div><div id="taskList" class="tasklist"></div></div>
+</section>
+
+<section class="page" id="page-production">
+ <div class="pagehead"><div><div class="eyebrow">PRODUCTION FLOW</div><h1>생산 공정</h1><p>준비부터 마감까지, 제과제빵의 연속 공정을 단계별로 확인하세요.</p></div><div class="actions"><button class="btn line" onclick="go('tasks')">업무 배정 관리</button></div></div>
+ <div class="notice" style="margin-bottom:15px">🍞 공정 카드를 선택하면 해당 공정의 업무만 확인할 수 있습니다. 실제 생산 순서와 작업 시간을 기준으로 업무를 배치해 보세요.</div>
+ <div class="stageflow" id="productionFlow"></div>
+</section>
+
+<section class="page" id="page-team">
+ <div class="pagehead"><div><div class="eyebrow">TEAM WORKSPACE</div><h1>직원 관리</h1><p>직원별 담당 업무와 작업량을 확인하고 업무를 효율적으로 배분하세요.</p></div><div class="actions"><button class="btn primary" onclick="openEmployeeModal()">＋ 직원 추가</button></div></div>
+ <div class="grid stats" id="teamStats"></div>
+ <div class="card"><div class="cardhead"><div><h3 class="cardtitle">직원별 업무 현황</h3><div class="sub">등록된 직원과 담당 업무 수</div></div></div><div id="employeeList"></div></div>
+</section>
+
+<section class="page" id="page-insights">
+ <div class="pagehead"><div><div class="eyebrow">BAKERY FLOW INTELLIGENCE</div><h1>AI 운영 분석</h1><p>업무 진행률, 지연 사유, 담당 현황을 바탕으로 운영 개선 포인트를 확인하세요.</p></div><div class="actions"><button class="btn primary" onclick="renderInsights()">✦ 분석 새로고침</button></div></div>
+ <div class="grid stats" id="insightStats"></div>
+ <div class="card"><div class="cardhead"><div><h3 class="cardtitle">오늘의 운영 인사이트</h3><div class="sub">현재 저장된 업무 데이터에서 확인된 내용</div></div><span class="tag">자동 분석</span></div><div class="insights" id="insightList"></div></div>
+ <div class="notice" style="margin-top:15px">중요 안내: 현재 단일 HTML 버전의 분석은 입력된 업무 데이터를 이용한 규칙 기반 분석입니다. 지연 원인 예측, 직원별 패턴 학습, 생성형 AI 조언을 실제 서비스로 제공하려면 서버와 AI 모델 API 연동 및 데이터 보호 설계가 필요합니다.</div>
+</section>
+
+<section class="page" id="page-settings">
+ <div class="pagehead"><div><div class="eyebrow">PREFERENCES</div><h1>설정</h1><p>매장 정보와 알림, 업무 데이터를 관리합니다.</p></div></div>
+ <div class="grid split">
+  <div class="card"><div class="cardhead"><div><h3 class="cardtitle">매장 기본 정보</h3><div class="sub">대시보드와 직원 화면에 표시됩니다.</div></div></div><div class="formgrid"><div class="field wide"><label>매장 이름</label><input id="settingStore" placeholder="매장 이름"></div><div class="field"><label>기본 업무 시작 시간</label><input id="settingStart" type="time"></div><div class="field"><label>기본 업무 마감 시간</label><input id="settingEnd" type="time"></div></div><button class="btn primary" style="margin-top:14px" onclick="saveSettings()">설정 저장</button></div>
+  <div class="card"><div class="cardhead"><div><h3 class="cardtitle">음성 및 알림</h3><div class="sub">브라우저가 열려 있는 동안 안내합니다.</div></div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0"><div><b style="font-size:12px">음성 알림</b><div class="sub">테스트 버튼으로 소리를 확인하세요.</div></div><button class="toggle on" id="voiceToggle" onclick="toggleVoice()"><span></span></button></div><button class="btn line" style="width:100%;margin-top:9px" onclick="testVoice()">🔊 음성 테스트</button><div class="sub" style="margin-top:10px">음성 안내는 브라우저의 음성 합성 기능을 사용합니다. 브라우저·기기 설정에 따라 동작이 달라질 수 있습니다.</div></div>
+ </div>
+ <div class="card" style="margin-top:16px"><div class="cardhead"><div><h3 class="cardtitle">데이터 백업 및 복원</h3><div class="sub">이 브라우저에 저장된 업무·직원 데이터를 파일로 보관할 수 있습니다.</div></div></div><div class="actions"><button class="btn soft" onclick="exportData()">↓ 데이터 백업</button><label class="btn line" style="cursor:pointer">↑ 백업 불러오기<input type="file" accept="application/json" id="importFile" hidden onchange="importData(event)"></label><button class="btn danger" onclick="resetAll()">초기 데이터로 초기화</button></div><div class="notice" style="margin-top:13px">현재 버전은 사용하는 기기의 브라우저 저장 공간에 데이터를 보관합니다. 앱 삭제·브라우저 데이터 삭제·기기 변경 시 데이터가 사라질 수 있으므로 정기적으로 백업해 주세요. 여러 직원·태블릿이 동시에 공유하려면 클라우드 DB와 사용자 인증이 필요합니다.</div></div>
+</section>
+</div>
+</main>
+</div>
+<nav class="bottomnav" id="bottomNav">
+ <button class="active" data-page="dashboard"><span>▦</span>홈</button><button data-page="tasks"><span>☑</span>업무</button><button data-page="production"><span>🥖</span>공정</button><button data-page="team"><span>♙</span>직원</button><button data-page="insights"><span>✦</span>AI 분석</button><button data-page="settings"><span>⚙</span>설정</button>
+</nav>
+<div class="modalback" id="modalback" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const STAGES=[["준비","🧺"],["반죽","🥣"],["발효","⏱️"],["성형","🥐"],["굽기","🔥"],["냉각","🌬️"],["포장","🎁"],["마감","🧹"]];
+const STORE="bakeryFlowPro_v3";
+let state={tasks:[],employees:["민지","지훈","서연"],store:"우리 동네 베이커리",start:"08:00",end:"18:00",voice:true};
+let recognition=null,toastTimer;
+let taskAlertTimer=null;
+let alertedTaskKeys=new Set();
+let speechQueue=[];
+let speakingAlert=false;
+let speechUnlocked=false;
+let lastAlertCheck=0;
+const $=id=>document.getElementById(id);
+const uid=()=>Date.now()+Math.floor(Math.random()*10000);
+function dateKey(){let d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-")}
+function escapeHTML(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function seedTasks(){let arr=[["재료 계량 및 준비","준비","08:00","민지"],["오븐 예열 및 작업대 정리","준비","08:10","지훈"],["반죽 재료 혼합","반죽","08:30","민지"],["반죽 온도 및 글루텐 확인","반죽","08:50","지훈"],["1차 발효 상태 확인","발효","09:10","서연"],["반죽 분할 및 둥글리기","성형","09:40","민지"],["제품 성형 및 팬닝","성형","10:00","지훈"],["오븐 굽기 상태 확인","굽기","10:30","서연"],["제품 냉각 상태 확인","냉각","11:10","민지"],["제품 포장 및 라벨 부착","포장","11:40","서연"],["작업대 및 도구 세척","마감","17:00","지훈"]];return arr.map((x,i)=>({id:uid()+i,name:x[0],stage:x[1],time:x[2],worker:x[3],done:false,reason:"",repeat:"없음",date:dateKey(),created:Date.now()+i}))}
+function load(){try{let x=JSON.parse(localStorage.getItem(STORE));if(x&&x.date===dateKey()){state={...state,...x};}else{state.tasks=seedTasks();save()}}catch(e){state.tasks=seedTasks();save()} }
+function save(){localStorage.setItem(STORE,JSON.stringify({...state,date:dateKey()}))}
+function taskAlertKey(t){return `${dateKey()}|${t.id}|${t.time||""}`}
+function unlockSpeech(){
+  if(!("speechSynthesis" in window))return;
+  speechUnlocked=true;
+  // 최초 사용자 입력으로 음성 권한을 연 뒤 대기 중인 업무 안내도 재생합니다.
+  if(typeof processSpeechQueue === "function") setTimeout(processSpeechQueue,0);
+  try{
+    const voices=speechSynthesis.getVoices();
+    // 음성 엔진을 사용자 동작 중 초기화해 이후 자동 안내 성공률을 높입니다.
+    if(!voices.length && speechSynthesis.onvoiceschanged===null){
+      speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices();
+    }
+  }catch(e){}
+}
+function queueTaskAlert(t){
+  const who=t.worker&&t.worker!=="미배정"?`${t.worker} 담당자, `:"";
+  speechQueue.push(`${who}${t.name} 업무 예정 시간이 되었습니다. 작업을 확인해 주세요.`);
+  processSpeechQueue();
+}
+function processSpeechQueue(){
+  if(!speechUnlocked||speakingAlert||!speechQueue.length||!state.voice)return;
+  if(!("speechSynthesis" in window))return;
+  const message=speechQueue.shift();
+  speakingAlert=true;
+  const utterance=new SpeechSynthesisUtterance(message);
+  utterance.lang="ko-KR";
+  utterance.rate=1;
+  utterance.pitch=1;
+  utterance.volume=1;
+  const finish=()=>{
+    speakingAlert=false;
+    processSpeechQueue();
+  };
+  utterance.onend=finish;
+  utterance.onerror=finish;
+  try{speechSynthesis.speak(utterance)}catch(e){finish()}
+}
+function checkTaskDeadlines(){
+  const now=Date.now();
+  // 매초 확인하되 같은 초에 중복 실행하지 않습니다.
+  if(now-lastAlertCheck<850)return;
+  lastAlertCheck=now;
+  const today=dateKey();
+  state.tasks.forEach(t=>{
+    if(t.done||!t.time||t.date&&t.date!==today)return;
+    const key=taskAlertKey(t);
+    if(alertedTaskKeys.has(key))return;
+    const [h,m]=t.time.split(":").map(Number);
+    if(!Number.isFinite(h)||!Number.isFinite(m))return;
+    const due=new Date();
+    due.setHours(h,m,0,0);
+    if(now>=due.getTime()){
+      // 먼저 기록해 렌더링/저장 중 중복으로 울리지 않게 합니다.
+      alertedTaskKeys.add(key);
+      queueTaskAlert(t);
+      toast(`🔔 업무 시간 알림: ${t.name}`);
+    }
+  });
+}
+function startTaskDeadlineMonitor(){
+  if(taskAlertTimer)clearInterval(taskAlertTimer);
+  checkTaskDeadlines();
+  taskAlertTimer=setInterval(checkTaskDeadlines,1000);
+}
+document.addEventListener("visibilitychange",()=>{
+  if(!document.hidden)checkTaskDeadlines();
+});
+window.addEventListener("focus",checkTaskDeadlines);
+document.addEventListener("pointerdown",unlockSpeech,{once:true});
+document.addEventListener("keydown",unlockSpeech,{once:true});
+function late(t){if(t.done||!t.time)return false;let [h,m]=t.time.split(":").map(Number),d=new Date();d.setHours(h,m,0,0);return Date.now()>d.getTime()}
+function counts(){let total=state.tasks.length,done=state.tasks.filter(t=>t.done).length,delayed=state.tasks.filter(late).length;return{total,done,left:total-done,delayed,pct:total?Math.round(done/total*100):0}}
+function statCard(label,value,icon,foot){return `<div class="card stat"><div class="stathead">${label}<span class="staticon">${icon}</span></div><div class="statnum">${value}</div><div class="statfoot">${foot}</div></div>`}
+function go(page){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$("page-"+page).classList.add("active");document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===page));$("crumb").textContent=({dashboard:"대시보드",tasks:"업무 관리",production:"생산 공정",team:"직원 관리",insights:"AI 분석",settings:"설정"})[page];window.scrollTo({top:0,behavior:"smooth"});if(page==="insights")renderInsights()}
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+function init(){load();$("dateLabel").textContent=new Date().toLocaleDateString("ko-KR",{month:"long",day:"numeric",weekday:"short"});$("taskStageFilter").innerHTML='<option value="">전체 공정</option>'+STAGES.map(s=>`<option>${s[0]}</option>`).join("");$("settingStore").value=state.store;$("settingStart").value=state.start;$("settingEnd").value=state.end;renderAll();startTaskDeadlineMonitor()}
+function renderAll(){ $("storeNameSide").textContent=state.store;renderDashboard();renderTasks();renderProduction();renderTeam();renderInsights();$("voiceToggle").classList.toggle("on",state.voice)}
+function renderDashboard(){let c=counts();$("dashboardStats").innerHTML=[statCard("전체 업무",c.total,"📋","오늘 등록된 작업"),statCard("완료 업무",c.done,"✓","완료 처리된 작업"),statCard("진행 중",c.left,"⏳","남은 업무"),statCard("지연 업무",c.delayed,"🔔","확인이 필요한 작업")].join("");$("dashPercent").textContent=c.pct+"%";$("dashProgress").style.width=c.pct+"%";$("dashStages").innerHTML=STAGES.map(s=>{let a=state.tasks.filter(t=>t.stage===s[0]),d=a.filter(t=>t.done).length,p=a.length?Math.round(d/a.length*100):0;return `<div class="stagebox"><div class="row"><span class="stageemoji">${s[1]}</span><small>${d}/${a.length}</small></div><b>${s[0]}</b><div class="progress"><span style="width:${p}%"></span></div></div>`}).join("");let urg=state.tasks.filter(t=>!t.done).sort((a,b)=>(late(b)-late(a))||(a.time||"99:99").localeCompare(b.time||"99:99")).slice(0,4);$("urgentTasks").innerHTML=urg.length?urg.map(taskHTML).join(""):'<div class="empty">미완료 업무가 없습니다.<br>모든 작업을 완료했어요! 🎉</div>';let recent=[...state.tasks].sort((a,b)=>b.created-a.created).slice(0,4);$("recentTasks").innerHTML=recent.length?recent.map(taskHTML).join(""):'<div class="empty">등록된 업무가 없습니다.</div>'}
+function taskHTML(t){return `<div class="taskrow ${t.done?"completed":""}"><button class="check" onclick="toggleTask(${t.id})" aria-label="완료">${t.done?"✓":""}</button><div><div class="taskname">${escapeHTML(t.name)}</div><div class="meta"><span class="tag">${escapeHTML(t.stage)}</span><span>◷ ${escapeHTML(t.time||"시간 미정")}</span><span>♙ ${escapeHTML(t.worker||"미배정")}</span>${late(t)?'<span class="tag red">지연</span>':""}${t.done?'<span class="tag green">완료</span>':""}</div></div><div class="taskbuttons">${late(t)?`<button class="mini" onclick="recordReason(${t.id})">지연 사유</button>`:""}<button class="mini" onclick="editTask(${t.id})">수정</button></div></div>`}
+function renderTasks(){let q=($("taskSearch")?.value||"").toLowerCase(),st=$("taskStageFilter")?.value||"",status=$("taskStatusFilter")?.value||"";let a=state.tasks.filter(t=>(!q||t.name.toLowerCase().includes(q)||(t.worker||"").toLowerCase().includes(q))&&(!st||t.stage===st)&&(!status||(status==="done"&&t.done)||(status==="todo"&&!t.done)||(status==="late"&&late(t))));a.sort((x,y)=>(x.done-y.done)||(x.time||"99:99").localeCompare(y.time||"99:99"));$("taskList").innerHTML=a.length?a.map(taskHTML).join(""):'<div class="empty">조건에 맞는 업무가 없습니다.<br>검색 조건을 바꾸거나 신규 업무를 등록해 주세요.</div>';let c=counts();$("taskStats").innerHTML=[statCard("전체",c.total,"📋","등록 업무"),statCard("미완료",c.left,"⏳","남은 작업"),statCard("완료",c.done,"✓","완료 작업"),statCard("지연",c.delayed,"🔔","확인 필요")].join("")}
+function renderProduction(){$("productionFlow").innerHTML=STAGES.map(s=>{let a=state.tasks.filter(t=>t.stage===s[0]);return `<div class="stagecol"><div class="stagecolhead"><span>${s[1]} ${s[0]}</span><small>${a.filter(t=>t.done).length}/${a.length}</small></div>${a.length?a.map(t=>`<div class="stageitem"><b>${escapeHTML(t.name)}</b><small>${escapeHTML(t.time||"시간 미정")} · ${escapeHTML(t.worker||"미배정")}</small><div style="display:flex;justify-content:flex-end;margin-top:7px"><button class="mini" onclick="toggleTask(${t.id})">${t.done?"완료 취소":"완료 체크"}</button></div></div>`).join(""):'<div class="sub">등록된 업무 없음</div>'}</div>`}).join("")}
+function renderTeam(){let names=state.employees;let total=state.tasks.length,done=state.tasks.filter(t=>t.done).length;$("teamStats").innerHTML=[statCard("등록 직원",names.length,"♙","직원 계정/이름"),statCard("배정 업무",state.tasks.filter(t=>names.includes(t.worker)).length,"📋","직원에게 배정된 작업"),statCard("미배정 업무",state.tasks.filter(t=>!t.worker||t.worker==="미배정").length,"⚠️","담당자 지정 필요"),statCard("전체 완료율",total?Math.round(done/total*100)+"%":"0%","✓","오늘 업무 기준")].join("");$("employeeList").innerHTML=names.length?`<div class="tablewrap"><table><thead><tr><th>직원</th><th>담당 업무</th><th>완료</th><th>진행 중</th><th>관리</th></tr></thead><tbody>${names.map((n,i)=>{let a=state.tasks.filter(t=>t.worker===n);return `<tr><td><div class="person"><div class="avatar">${escapeHTML(n.slice(0,1))}</div><div><b>${escapeHTML(n)}</b><small>매장 직원</small></div></div></td><td>${a.length}건</td><td>${a.filter(t=>t.done).length}건</td><td>${a.filter(t=>!t.done).length}건</td><td><button class="mini" onclick="renameEmployee(${i})">이름 수정</button> <button class="mini" onclick="removeEmployee(${i})">삭제</button></td></tr>`}).join("")}</tbody></table></div>`:'<div class="empty">등록된 직원이 없습니다. 직원을 추가해 주세요.</div>'}
+function renderInsights(){let c=counts(),lateTasks=state.tasks.filter(late),unassigned=state.tasks.filter(t=>!t.done&&(!t.worker||t.worker==="미배정")),reasons=state.tasks.filter(t=>t.reason).map(t=>t.reason);$("insightStats").innerHTML=[statCard("완료율",c.pct+"%","📈","전체 업무 대비"),statCard("지연 업무",lateTasks.length,"⏱️","예정 시간 초과"),statCard("미배정",unassigned.length,"♙","담당자 지정 필요"),statCard("지연 사유 기록",reasons.length,"📝","누적 입력 건수")].join("");let items=[["생산 진행 상황",`오늘 업무 ${c.total}건 중 ${c.done}건 완료, 현재 진행률은 ${c.pct}%입니다.`],["지연 업무 점검",lateTasks.length?`${lateTasks.length}건이 예정 시간을 지났습니다. 담당자에게 작업 상태를 확인하고 다음 공정에 영향이 있는지 점검하세요.`:"현재 예정 시간을 지난 미완료 업무가 없습니다."],["담당자 배정",unassigned.length?`${unassigned.length}건의 미완료 업무에 담당자가 지정되지 않았습니다. 담당자 배정을 권장합니다.`:"미완료 업무에 담당자가 모두 지정되어 있습니다."],["지연 원인 기록",reasons.length?`기록된 사유: ${reasons.slice(0,3).join(" · ")}`:"지연 업무가 발생하면 사유를 기록해 반복되는 문제를 파악하세요."],["운영 개선 제안","발효·냉각처럼 대기 시간이 발생하는 공정은 다음 작업과 시간을 함께 확인해 병목을 줄이세요."],["데이터 활용 안내","업무 완료 시각과 지연 사유가 누적되면 추후 공정별 소요 시간과 반복 지연 패턴 분석의 기초 자료로 활용할 수 있습니다."]];$("insightList").innerHTML=items.map(x=>`<div class="insight"><b>${escapeHTML(x[0])}</b><p>${escapeHTML(x[1])}</p></div>`).join("")}
+function toggleTask(id){let t=state.tasks.find(x=>x.id===id);if(!t)return;t.done=!t.done;t.completedAt=t.done?Date.now():null;save();renderAll();toast(t.done?"업무를 완료 처리했어요.":"완료 상태를 취소했어요.")}
+function openModal(content){$("modal").innerHTML=content;$("modalback").classList.add("show")}
+function closeModal(){$("modalback").classList.remove("show")}
+function openTaskModal(t=null){let editing=!!t;openModal(`<h2>${editing?"업무 수정":"신규 업무 등록"}</h2><p>${editing?"업무 정보와 담당자를 변경하세요.":"업무 내용을 입력하거나 마이크로 말해 등록할 수 있습니다."}</p><form id="taskModalForm" onsubmit="submitTask(event,${editing?t.id:"null"})"><div class="formgrid">
+<div class="field wide"><label>업무 이름</label><div class="voiceinput"><input id="fName" required placeholder="예: 크루아상 반죽 냉장 휴지" value="${escapeHTML(t?.name||"")}"><button type="button" class="btn soft" id="micBtn" onclick="voiceTask()">🎙 음성 입력</button></div><div class="voicehint" id="voiceHint">마이크를 누르고 업무 내용을 말하면 자동으로 입력됩니다. 지원 브라우저와 마이크 권한이 필요합니다.</div></div>
+<div class="field"><label>생산 공정</label><select id="fStage">${STAGES.map(s=>`<option ${t?.stage===s[0]?"selected":""}>${s[0]}</option>`).join("")}</select></div>
+<div class="field"><label>담당 직원</label><select id="fWorker"><option value="미배정">담당자 미배정</option>${state.employees.map(n=>`<option ${t?.worker===n?"selected":""}>${escapeHTML(n)}</option>`).join("")}</select></div>
+<div class="field"><label>예정 시간</label><input id="fTime" type="time" value="${escapeHTML(t?.time||"")}"></div>
+<div class="field"><label>반복 설정</label><select id="fRepeat"><option ${!t||t.repeat==="없음"?"selected":""}>없음</option><option ${t?.repeat==="매일"?"selected":""}>매일</option></select></div>
+<div class="field wide"><label>메모 (선택)</label><textarea id="fNote" placeholder="작업 시 주의사항">${escapeHTML(t?.note||"")}</textarea></div></div><div class="modalfoot"><button type="button" class="btn line" onclick="closeModal()">취소</button>${editing?`<button type="button" class="btn danger" onclick="deleteTask(${t.id})">삭제</button>`:""}<button class="btn primary" type="submit">${editing?"변경 저장":"업무 등록"}</button></div></form>`)}
+function submitTask(e,id){e.preventDefault();let obj={name:$("fName").value.trim(),stage:$("fStage").value,worker:$("fWorker").value,time:$("fTime").value,repeat:$("fRepeat").value,note:$("fNote").value.trim()};if(!obj.name){toast("업무 이름을 입력해 주세요.");return}if(id){Object.assign(state.tasks.find(t=>t.id===id),obj)}else state.tasks.push({...obj,id:uid(),done:false,reason:"",created:Date.now(),date:dateKey()});save();closeModal();renderAll();toast(id?"업무를 수정했어요.":"새 업무를 등록했어요.")}
+function recordReason(id){let t=state.tasks.find(x=>x.id===id);if(!t)return;let value=prompt("지연 사유를 입력해 주세요. 예: 재료 준비 지연, 오븐 대기, 인력 부족",t.reason||"");if(value===null)return;t.reason=value.trim();save();renderAll();toast("지연 사유를 저장했어요.")}
+function editTask(id){let t=state.tasks.find(x=>x.id===id);if(t)openTaskModal(t)}
+function deleteTask(id){if(!confirm("이 업무를 삭제할까요?"))return;state.tasks=state.tasks.filter(t=>t.id!==id);save();closeModal();renderAll();toast("업무를 삭제했어요.")}
+function voiceTask(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){$("voiceHint").textContent="이 브라우저는 음성 인식을 지원하지 않습니다. Chrome 또는 Edge에서 사용하거나 직접 입력해 주세요.";return}if(recognition){try{recognition.stop()}catch(e){}}recognition=new SR();recognition.lang="ko-KR";recognition.continuous=false;recognition.interimResults=true;$("micBtn").textContent="🔴 듣는 중";$("voiceHint").textContent="말씀해 주세요. 업무 내용을 듣고 있어요.";recognition.onresult=e=>{let s="";for(let i=e.resultIndex;i<e.results.length;i++)s+=e.results[i][0].transcript;$("fName").value=s};recognition.onerror=e=>{$("voiceHint").textContent=e.error==="not-allowed"?"마이크 권한을 허용해 주세요.":"음성을 인식하지 못했어요. 다시 시도하거나 직접 입력해 주세요."};recognition.onend=()=>{$("micBtn").textContent="🎙 음성 입력";if($("fName").value)$("voiceHint").textContent="음성 입력 완료! 내용을 확인한 뒤 업무를 등록해 주세요."};try{recognition.start()}catch(e){$("micBtn").textContent="🎙 음성 입력";$("voiceHint").textContent="음성 인식을 시작할 수 없습니다."}}
+function openEmployeeModal(){openModal(`<h2>직원 추가</h2><p>직원 이름을 등록하면 업무 등록 시 담당자로 지정할 수 있습니다.</p><form onsubmit="addEmployee(event)"><div class="field"><label>직원 이름</label><input id="employeeName" required placeholder="예: 수진"></div><div class="modalfoot"><button type="button" class="btn line" onclick="closeModal()">취소</button><button class="btn primary">직원 등록</button></div></form>`)}
+function addEmployee(e){e.preventDefault();let n=$("employeeName").value.trim();if(!n)return;if(state.employees.includes(n)){toast("이미 등록된 직원입니다.");return}state.employees.push(n);save();closeModal();renderAll();toast("직원을 등록했어요.")}
+function renameEmployee(i){let old=state.employees[i],n=prompt("변경할 직원 이름을 입력하세요.",old);if(!n||!n.trim())return;n=n.trim();state.tasks.forEach(t=>{if(t.worker===old)t.worker=n});state.employees[i]=n;save();renderAll();toast("직원 정보를 변경했어요.")}
+function removeEmployee(i){let n=state.employees[i];if(!confirm(`${n} 직원을 삭제할까요? 담당 업무는 '미배정'으로 변경됩니다.`))return;state.tasks.forEach(t=>{if(t.worker===n)t.worker="미배정"});state.employees.splice(i,1);save();renderAll();toast("직원을 삭제했어요.")}
+function saveSettings(){state.store=$("settingStore").value.trim()||"우리 동네 베이커리";state.start=$("settingStart").value;state.end=$("settingEnd").value;save();renderAll();toast("매장 설정을 저장했어요.")}
+function toggleVoice(){
+  state.voice=!state.voice;
+  $("voiceToggle").classList.toggle("on",state.voice);
+  save();
+  if(!state.voice){
+    speechQueue=[];
+    if("speechSynthesis"in window)speechSynthesis.cancel();
+  }else{
+    unlockSpeech();
+    processSpeechQueue();
+  }
+  toast(state.voice?"음성 알림을 켰어요.":"음성 알림을 껐어요.");
+}
+function say(text){
+  if(!state.voice)return;
+  if(!("speechSynthesis"in window)){toast("이 브라우저는 음성 출력을 지원하지 않습니다.");return}
+  unlockSpeech();
+  // 테스트 음성은 기존 안내를 중단하고 즉시 재생합니다.
+  speechQueue=[];
+  speakingAlert=false;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="ko-KR";
+  u.rate=1;
+  u.volume=1;
+  speechSynthesis.speak(u);
+}
+function testVoice(){say("베이커리 플로우 에이아이입니다. 업무 진행 상황을 확인해 주세요.");}
+function exportData(){let blob=new Blob([JSON.stringify({...state,exportedAt:new Date().toISOString()},null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="bakery-flow-backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast("백업 파일을 준비했어요.")}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!Array.isArray(x.tasks)||!Array.isArray(x.employees))throw Error();state={...state,...x};save();renderAll();toast("백업 데이터를 불러왔어요.")}catch(err){alert("올바른 BAKERY FLOW 백업 파일이 아닙니다.")}};r.readAsText(f);e.target.value=""}
+function resetAll(){if(!confirm("현재 업무와 직원 데이터를 초기 상태로 되돌릴까요? 먼저 백업하는 것을 권장합니다."))return;state.tasks=seedTasks();state.employees=["민지","지훈","서연"];save();renderAll();toast("초기 데이터로 복원했어요.")}
+function toast(s){$("toast").textContent=s;$("toast").classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>$("toast").classList.remove("show"),2300)}
+init();
+
+// GitHub Pages 등 HTTPS 호스팅에서 오프라인 캐시를 활성화합니다.
+if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch(err =>
+      console.warn("오프라인 캐시 등록 실패:", err)
+    );
+  });
+}
+</script>
+</body>
+</html>
